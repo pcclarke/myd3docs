@@ -2,16 +2,26 @@
 
 Nesting in D3 refers to creating hierarchical objects from arrays containing objects with matching property names. The nest method creates key-value pairs by grouping elements in an array by a given property, returning an array of hierarchical objects. By supplying multiple properties, it is possible to create tree structures with many levels of keys.
 
-An initialized nest method is called a nest operator, because it can be reused. The nest operator does not retain any reference to the data it has nested. The only information stored in the nest operator are the keys and other methods used to define how objects should be nested.
+An initialized nest method is called a *nest operator* because it performs operations on data, similar to arithmetic operators. A nest operator does not retain any reference to data it has nested and it can be reused with different data inputs. The only information stored in the nest operator are the keys and other methods used to define how objects should be nested.
 
-Objects are commonly nested so that the new hierarchy can be iterated through, such as in drawing methods. You can also create nest operators to sort the data by keys or leaves, and to calculate summary data using the rollup method.
+Nests are an extremely useful feature in D3 for analyzing and manipulating data. Objects are commonly nested so that the new hierarchy can be iterated through, such as in drawing methods. You can also create nest operators to sort the data by keys or leaves, and to calculate summary data using the rollup method.
 
 **Example**
 
-Take the following data in a JavaScript array:
+Consider an array with ten elements, each containing an object that has four properties:
+
+![array with ten elements](nesting_color_array.jpg)
+
+Here the properties are shown by different border styles, and their contents as colors. If we were to nest this array by registering the small dotted border as a key, the resulting nested object would look like the following:
+
+![nested object](nesting_color_entries.jpg)
+
+Now the elements are nested by the value of the small dot key. Notice that the elements are still intact (including the small dot property) they have only been reorganized into the new hierarchy.
+
+Here's the same process again, but with Javascript. Start with an array containing ten elements, each containing an object that has four properties:
 
 ```javascript
-var fruits = [
+var colors = [
 	{name: "apple", color: "red", type: "accessory"},
 	{name: "banana", color: "yellow", type: "berry"},
 	{name: "blackberry", color: "black", type: "aggregate"},
@@ -27,33 +37,6 @@ var fruits = [
 	{name: "raspberry", color: "red", type: "aggregate"},
 	{name: "strawberry", color: "red", type: "accessory"}
 ];
-```
-
-A nest operator can be created and set up with a key in a chained method:
-
-```javascript
-var nested = d3.nest()
-	.key(function(d) { return d.type; });
-```
-
-Then the nest operator can be used to return a hierarchical object from the fruits array:
-
-```javascript
-var entries = nested.entries(fruits);
-```
-
-Which contains the nested data:
-
-```javascript
-[
-	{key: "accessory", values: [{name: "apple", color: "red", type: "accessory"}, {name: "strawberry", color: "red", type: "accessory"}]},
-	{key: "berry", values: [{name: "banana", color: "yellow", type: "berry"}, {name: "blueberry", color: "blue", type: "berry"}, {name: "cranberry", color: "red", type: "berry"}, {name: "grape", color: "green", type: "berry"}]},
-	{key: "aggregate", values: [{name: "blackberry", color: "black", type: "aggregate"}, {name: "raspberry", color: "red", type: "aggregate"}]},
-	{key: "hesperidium", values: [{name: "grapefruit", color: "orange", type: "hesperidium"}, {name: "lemon", color: "yellow", type: "hesperidium"}, {name: "lime", color: "green", type: "hesperidium"}]},
-	{key: "multiple", values: [{name: "orange", color: "orange", type: "multiple"}, {name: "pineapple", color: "yellow", type: "multiple"}]},
-	{key: "simple", values: [{name: "pear", color: "green", type: "simple"}]}
-]
-```
 
 ## d3.nest()
 
@@ -92,7 +75,7 @@ Registers a new key function in the nest operator. When the nest operator is use
 
 It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of keys is in reverse of how they are registered; the last key registered is at the top of the hierarchy.
 
-> *Note*: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
+> Note: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
 
 **Example**
 
