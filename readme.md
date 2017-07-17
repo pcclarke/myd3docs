@@ -103,3 +103,17 @@ nest.key(function(d) { return d.type; })
 
 Here two keys are registered with a nest operator. The *color* key will be first in the hierarchy, then *type*.
 
+
+## nest.sortKeys(comparator)
+
+**Parameters**
+
+*comparator*: a callback function that defines the sort order, matching the [compareFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) return values. D3 provides two sort order functions, *d3.ascending* and *d3.descending*.
+
+**Description**
+
+Sorts key values for the current registered key
+
+
+
+**Example**
