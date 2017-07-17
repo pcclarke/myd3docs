@@ -22,21 +22,31 @@ Here's the same process again, but with Javascript. Start with an array containi
 
 ```javascript
 var colors = [
-	{name: "apple", color: "red", type: "accessory"},
-	{name: "banana", color: "yellow", type: "berry"},
-	{name: "blackberry", color: "black", type: "aggregate"},
-	{name: "blueberry", color: "blue", type: "berry"},
-	{name: "cranberry", color: "red", type: "berry"},
-	{name: "grape", color: "green", type: "berry"},
-	{name: "grapefruit", color: "orange", type: "hesperidium"},
-	{name: "lemon", color: "yellow", type: "hesperidium"},
-	{name: "lime", color: "green", type: "hesperidium"},
-	{name: "orange", color: "orange", type: "multiple"},
-	{name: "pear", color: "green", type: "simple"},
-	{name: "pineapple", color: "yellow", type: "multiple"},
-	{name: "raspberry", color: "red", type: "aggregate"},
-	{name: "strawberry", color: "red", type: "accessory"}
+	{dot: "red", block: "green", dash: "blue", wave: "yellow"},
+	{dot: "orange", block: "pink", dash: "green", wave: "red"},
+	{dot: "orange", block: "green", dash: "blue", wave: "yellow"},
+	{dot: "blue", block: "orange", dash: "green", wave: "green"},
+	{dot: "orange", block: "pink", dash: "pink", wave: "pink"},
+	{dot: "blue", block: "orange", dash: "pink", wave: "green"},
+	{dot: "blue", block: "yellow", dash: "blue", wave: "orange"},
+	{dot: "red", block: "green", dash: "green", wave: "red"},
+	{dot: "red", block: "green", dash: "green", wave: "orange"},
+	{dot: "red", block: "pink", dash: "green", wave: "yellow"}
 ];
+```
+
+Then, in nested form using the dot property as a key:
+
+```javascript
+[
+	{key: "red", values: [{dot: "red", block: "green", dash: "blue", wave: "yellow"}, {dot: "red", block: "green", dash: "green", wave: "red"}, {dot: "red", block: "green", dash: "green", wave: "orange"}, {dot: "red", block: "pink", dash: "green", wave: "yellow"}]},
+	{key: "orange", values: [{dot: "orange", block: "pink", dash: "green", wave: "red"}, {dot: "orange", block: "green", dash: "blue", wave: "yellow"}, {dot: "orange", block: "pink", dash: "pink", wave: "pink"}]},
+	{key: "blue", values: [{dot: "blue", block: "orange", dash: "green", wave: "green"}, {dot: "blue", block: "orange", dash: "pink", wave: "green"}, {dot: "blue", block: "yellow", dash: "blue", wave: "orange"}]}
+]
+```
+
+The following sections describe how to use d3.nest() to set up and transform arrays into nested objects.
+
 
 ## d3.nest()
 
