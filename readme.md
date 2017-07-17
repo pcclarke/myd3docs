@@ -12,20 +12,20 @@ Take the following data in a JavaScript array:
 
 ```javascript
 var fruits = [
-{name: "apple", color: "red", type: "accessory"},
-{name: "banana", color: "yellow", type: "berry"},
-{name: "blackberry", color: "black", type: "aggregate"},
-{name: "blueberry", color: "blue", type: "berry"},
-{name: "cranberry", color: "red", type: "berry"},
-{name: "grape", color: "green", type: "berry"},
-{name: "grapefruit", color: "orange", type: "hesperidium"},
-{name: "lemon", color: "yellow", type: "hesperidium"},
-{name: "lime", color: "green", type: "hesperidium"},
-{name: "orange", color: "orange", type: "multiple"},
-{name: "pear", color: "green", type: "simple"},
-{name: "pineapple", color: "yellow", type: "multiple"},
-{name: "raspberry", color: "red", type: "aggregate"},
-{name: "strawberry", color: "red", type: "accessory"}
+  {name: "apple", color: "red", type: "accessory"},
+  {name: "banana", color: "yellow", type: "berry"},
+  {name: "blackberry", color: "black", type: "aggregate"},
+  {name: "blueberry", color: "blue", type: "berry"},
+  {name: "cranberry", color: "red", type: "berry"},
+  {name: "grape", color: "green", type: "berry"},
+  {name: "grapefruit", color: "orange", type: "hesperidium"},
+  {name: "lemon", color: "yellow", type: "hesperidium"},
+  {name: "lime", color: "green", type: "hesperidium"},
+  {name: "orange", color: "orange", type: "multiple"},
+  {name: "pear", color: "green", type: "simple"},
+  {name: "pineapple", color: "yellow", type: "multiple"},
+  {name: "raspberry", color: "red", type: "aggregate"},
+  {name: "strawberry", color: "red", type: "accessory"}
 ];
 ```
 
@@ -33,7 +33,7 @@ A nest operator can be created and set up with a key in a chained method:
 
 ```javascript
 var nested = d3.nest()
-.key(function(d) { return d.type; });
+  .key(function(d) { return d.type; });
 ```
 
 Then the nest operator can be used to return a hierarchical object from the fruits array:
@@ -98,7 +98,7 @@ It is possible to register multiple keys in a nest operator. Each time a key is 
 
 ```javascript
 nest.key(function(d) { return d.type; })
-.key(function(d) { return d.color; });
+    .key(function(d) { return d.color; });
 ```
 
 Here two keys are registered with a nest operator. The *color* key will be first in the hierarchy, then *type*.
