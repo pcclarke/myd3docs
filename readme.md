@@ -12,20 +12,20 @@ Take the following data in a JavaScript array:
 
 ```javascript
 var fruits = [
-	{name: "apple", color: "red", type: "accessory"},
-	{name: "banana", color: "yellow", type: "berry"},
-	{name: "blackberry", color: "black", type: "aggregate"},
-	{name: "blueberry", color: "blue", type: "berry"},
-	{name: "cranberry", color: "red", type: "berry"},
-	{name: "grape", color: "green", type: "berry"},
-	{name: "grapefruit", color: "orange", type: "hesperidium"},
-	{name: "lemon", color: "yellow", type: "hesperidium"},
-	{name: "lime", color: "green", type: "hesperidium"},
-	{name: "orange", color: "orange", type: "multiple"},
-	{name: "pear", color: "green", type: "simple"},
-	{name: "pineapple", color: "yellow", type: "multiple"},
-	{name: "raspberry", color: "red", type: "aggregate"},
-	{name: "strawberry", color: "red", type: "accessory"}
+{name: "apple", color: "red", type: "accessory"},
+{name: "banana", color: "yellow", type: "berry"},
+{name: "blackberry", color: "black", type: "aggregate"},
+{name: "blueberry", color: "blue", type: "berry"},
+{name: "cranberry", color: "red", type: "berry"},
+{name: "grape", color: "green", type: "berry"},
+{name: "grapefruit", color: "orange", type: "hesperidium"},
+{name: "lemon", color: "yellow", type: "hesperidium"},
+{name: "lime", color: "green", type: "hesperidium"},
+{name: "orange", color: "orange", type: "multiple"},
+{name: "pear", color: "green", type: "simple"},
+{name: "pineapple", color: "yellow", type: "multiple"},
+{name: "raspberry", color: "red", type: "aggregate"},
+{name: "strawberry", color: "red", type: "accessory"}
 ];
 ```
 
@@ -33,7 +33,7 @@ A nest operator can be created and set up with a key in a chained method:
 
 ```javascript
 var nested = d3.nest()
-	.key(function(d) { return d.type; });
+.key(function(d) { return d.type; });
 ```
 
 Then the nest operator can be used to return a hierarchical object from the fruits array:
@@ -46,16 +46,18 @@ Which contains the nested data:
 
 ```javascript
 [
-	{key: "accessory", values: [{name: "apple", color: "red", type: "accessory"}, {name: "strawberry", color: "red", type: "accessory"}]},
-	{key: "berry", values: [{name: "banana", color: "yellow", type: "berry"}, {name: "blueberry", color: "blue", type: "berry"}, {name: "cranberry", color: "red", type: "berry"}, {name: "grape", color: "green", type: "berry"}]},
-	{key: "aggregate", values: [{name: "blackberry", color: "black", type: "aggregate"}, {name: "raspberry", color: "red", type: "aggregate"}]},
-	{key: "hesperidium", values: [{name: "grapefruit", color: "orange", type: "hesperidium"}, {name: "lemon", color: "yellow", type: "hesperidium"}, {name: "lime", color: "green", type: "hesperidium"}]},
-	{key: "multiple", values: [{name: "orange", color: "orange", type: "multiple"}, {name: "pineapple", color: "yellow", type: "multiple"}]},
-	{key: "simple", values: [{name: "pear", color: "green", type: "simple"}]}
+{key: "accessory", values: [{name: "apple", color: "red", type: "accessory"}, {name: "strawberry", color: "red", type: "accessory"}]},
+{key: "berry", values: [{name: "banana", color: "yellow", type: "berry"}, {name: "blueberry", color: "blue", type: "berry"}, {name: "cranberry", color: "red", type: "berry"}, {name: "grape", color: "green", type: "berry"}]},
+{key: "aggregate", values: [{name: "blackberry", color: "black", type: "aggregate"}, {name: "raspberry", color: "red", type: "aggregate"}]},
+{key: "hesperidium", values: [{name: "grapefruit", color: "orange", type: "hesperidium"}, {name: "lemon", color: "yellow", type: "hesperidium"}, {name: "lime", color: "green", type: "hesperidium"}]},
+{key: "multiple", values: [{name: "orange", color: "orange", type: "multiple"}, {name: "pineapple", color: "yellow", type: "multiple"}]},
+{key: "simple", values: [{name: "pear", color: "green", type: "simple"}]}
 ]
 ```
 
 ## d3.nest()
+
+**Description**
 
 Creates a new nest operator with the following methods:
 
@@ -75,12 +77,16 @@ The set of keys is initially empty, and you must assign them with the key method
 var nest = d3.nest();
 ```
 
+Initializes a new nest operator and assigns it to the variable *nest*.
+
 
 ## nest.key(key)
 
 **Parameters**
 
 *key*: a callback function that returns a string used to identify groups.
+
+**Description**
 
 Registers a new key function in the nest operator. When the nest operator is used to create nested data with the entries method, the key function is invoked for each element in the input array. The key function uses a string identifier to organize the elements into groups. Most often, the function is an object property accessor returned by the key callback function.
 
@@ -92,7 +98,7 @@ It is possible to register multiple keys in a nest operator. Each time a key is 
 
 ```javascript
 nest.key(function(d) { return d.type; })
-	.key(function(d) { return d.color; });
+.key(function(d) { return d.color; });
 ```
 
 Here two keys are registered with a nest operator. The *color* key will be first in the hierarchy, then *type*.
