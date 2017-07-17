@@ -8,8 +8,9 @@ Objects are commonly nested so that the new hierarchy can be iterated through, s
 
 **Example**
 
-Suppose you have the following data in a JavaScript array:
+Take the following data in a JavaScript array:
 
+```javascript
 var fruits = [
 	{name: "apple", color: "red", type: "accessory"},
 	{name: "banana", color: "yellow", type: "berry"},
@@ -26,15 +27,16 @@ var fruits = [
 	{name: "raspberry", color: "red", type: "aggregate"},
 	{name: "strawberry", color: "red", type: "accessory"}
 ];
+```
 
-You can create a nest operator by setting up a key:
+A nest operator can be created and set up with a key in a chained method:
 
 ```javascript
 var nested = d3.nest()
 	.key(function(d) { return d.type; });
 ```
 
-And then return its output with the entries method:
+Then the nest operator can be used to return a hierarchical object from the fruits array:
 
 ```javascript
 var entries = nested.entries(fruits);
@@ -78,12 +80,20 @@ var nest = d3.nest();
 
 **Parameters**
 
-*key*: a callback function that returns the key value from a given property name in an object.
+*key*: a callback function that returns a string used to identify groups.
+
+Registers a new key function in the nest operator. When the nest operator is used to create nested data with the entries method, the key function is invoked for each element in the input array. The key function uses a string identifier to organize the elements into groups. Most often, the function is an object property accessor returned by the key callback function.
+
+It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of keys is in reverse of how they are registered; the last key registered is at the top of the hierarchy.
+
+*Note*: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
 
 **Example**
 
 ```javascript
-nest.key(function(d) { return d.type; });
+nest.key(function(d) { return d.type; })
+	.key(function(d) { return d.color; });
 ```
 
-Note: if the given property is missing from an object in the array, that object will be appended to an "undefined" key.
+Here two keys are registered with a nest operator. The *color* key will be first in the hierarchy, then *type*.
+
