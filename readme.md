@@ -92,7 +92,7 @@ Registers a new key function in the nest operator. When the nest operator is use
 
 It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of keys is in reverse of how they are registered; the last key registered is at the top of the hierarchy.
 
-*Note*: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
+> *Note*: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
 
 **Example**
 
