@@ -62,7 +62,7 @@ Creates a new nest operator with the following methods:
 - sortKeys
 - sortValues
 
-The set of keys is initially empty, and you must assign them with the key method to nest data.
+The nest operator must be constructed by passing in functions that describe how data should be nested. For example, to return a nested object with the *entries* method, you must first register keys with the *key* method.
 
 **Example**
 
