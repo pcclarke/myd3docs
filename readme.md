@@ -16,7 +16,7 @@ Here the properties are shown by different border styles, and their contents as 
 
 ![nested object](nesting_color_entries.jpg)
 
-Now the elements are nested by the value of the small dot key. Notice that the elements are still intact (including the small dot property) they have only been reorganized into the new hierarchy.
+Now the elements are nested by the value of the small dot key. There are three keys, from the three unique values of the dot property. Each key has an array of elements that contain a dot property with a value mactching the key. Notice that the ten elements from the original array have not changed, only they been reorganized into the new key-value hierarchy.
 
 Here's the same process again, but with Javascript. Start with an array containing ten elements, each containing an object that has four properties:
 
@@ -85,16 +85,26 @@ Registers a new key function in the nest operator. When the nest operator is use
 
 It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of keys is in reverse of how they are registered; the last key registered is at the top of the hierarchy.
 
-> Note: if the string identifier does not match any property in an element of the array, that object will be appended to an "undefined" key group.
+> Note: if the string identifier does not match any property in an element of the array, that object will be appended to an *undefined* key group.
 
 **Example**
 
+Registering one key with a nest operator:
+
 ```javascript
-nest.key(function(d) { return d.type; })
-	.key(function(d) { return d.color; });
+nest.key(function(d) { return d.dot; });
 ```
 
-Here two keys are registered with a nest operator. The *color* key will be first in the hierarchy, then *type*.
+Here the key method is passed a callback function that returns the value obtained from the property accessor *dot*.
+
+Registering two keys with a nest operator:
+
+```javascript
+nest.key(function(d) { return d.dot; })
+	.key(function(d) { return d.block; });
+```
+
+Here two key methods are chained together to register the *dot* and *block* property accessors as keys. The *block* key will be first in the hierarchy, then *dot*.
 
 
 ## nest.sortKeys(comparator)
