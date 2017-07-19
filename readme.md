@@ -111,12 +111,22 @@ Here two key methods are chained together to register the *dot* and *block* prop
 
 **Parameters**
 
-*comparator*: a callback function that defines the sort order, matching the [compareFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) return values. D3 provides two sort order functions, *d3.ascending* and *d3.descending*.
+*comparator*: a callback function that defines the sort order, matching the [compareFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) return values. 
 
 **Description**
 
-Sorts key values for the current registered key
+Sorts key values of the last registered key using a given comparator function when they are returned from the *entries* nest method.
 
+> Note: nest.sortKeys only affects the result of nest.entries; the order of keys returned by nest.map and nest.object is always arbitrary, regardless of comparator.
 
+D3 provides two sort order functions that can be supplied to nest.sortKeys, *d3.ascending* and *d3.descending*. If no comparator function is supplied, the keys will be arbitrarily sorted.
 
 **Example**
+
+Sorting keys using the included D3 sort order functions:
+
+```javascript
+nest.key(function(d) { return d.dot; }).sortKeys(d3.ascending)
+	.key(function(d) { return d.block; }).sortKeys(d3.descending);
+```
+
