@@ -87,7 +87,7 @@ Create a nest operator, register a key to nest data with, and return data in one
 ```javascript
 var entries = d3.nest()
 	.key(function(d) { return d.dot; })
-	nest.entries(colors);
+	.entries(colors);
 ```
 
 
@@ -179,3 +179,4 @@ nest.key(function(d) { return d.dot; })
 **Description**
 
 Specifies a rollup function to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in the either associative array returned by nest.map or nest.object; for nest.entries, it replaces the leaf entry.values with entry.value. If the leaves are sorted with nest.sortValues, the leaf elements are sorted prior to invoking the rollup function.
+
