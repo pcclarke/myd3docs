@@ -130,3 +130,23 @@ nest.key(function(d) { return d.dot; }).sortKeys(d3.ascending)
 	.key(function(d) { return d.block; }).sortKeys(d3.descending);
 ```
 
+## nest.sortValues(comparator)
+
+**Parameters**
+
+*comparator*: a callback function that defines the sort order, matching the [compareFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) return values. 
+
+**Description**
+
+Sorts leaf elements using a given comparator function. Applies to nest.entries, nest.map, and nest.object.
+
+A comparator function must be supplied to specify which element properties to sort by, even when using the included *d3.ascending* and *d3.descending* sort order functions. If no comparator function is supplied, the keys will be arbitrarily sorted.
+
+**Example**
+
+Sort elements by the wave property in ascending order:
+
+```javascript
+nest.key(function(d) { return d.dot; })
+	.sortValues(function(a, b) { return d3.ascending(a.wave, b.wave); });
+```
