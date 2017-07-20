@@ -52,9 +52,9 @@ The following sections describe how to use d3.nest() to set up and transform arr
 
 **Description**
 
-Creates a new nest operator. Nest operators must first be set up with constructor methods that take functions which describe how to nest data. Then they can be used with invoking methods that take and return data. For example, to return a nested object with the *entries* method, you must first register keys with the *key* method.
+Creates a new nest operator. Nest operators must first be set up with builder methods that describe how and what data should be nested. Then they can be used with invoking methods that take an array and return data. For example, to return a nested object with the *entries* method, you must first register at least one key with the *key* method.
 
-Constructor methods:
+Builder methods:
 
 - key
 - rollup
