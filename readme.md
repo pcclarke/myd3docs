@@ -52,25 +52,43 @@ The following sections describe how to use d3.nest() to set up and transform arr
 
 **Description**
 
-Creates a new nest operator with the following methods:
+Creates a new nest operator. Nest operators must first be set up with constructor methods that take functions which describe how to nest data. Then they can be used with invoking methods that take and return data. For example, to return a nested object with the *entries* method, you must first register keys with the *key* method.
 
-- entries
+Constructor methods:
+
 - key
-- map
-- object
 - rollup
 - sortKeys
 - sortValues
 
-The nest operator must be constructed by passing in functions that describe how data should be nested. For example, to return a nested object with the *entries* method, you must first register keys with the *key* method.
+Invoking methods:
+
+- entries
+- map
+- object
+
+There are two patterns for using nest operators. First is set up d3.nest with a chain of constructor methods to create a reusable nest operator. The second is to chain both the constructor and invoking methods together to get an immediate result.
 
 **Example**
 
+Create a nest operator and register a key to nest data with, then return the data with entries:
+
 ```javascript
-var nest = d3.nest();
+var nest = d3.nest()
+	.key(function(d) { return d.dot; });
+
+var entries = nest.entries(colors);
 ```
 
-Initializes a new nest operator and assigns it to the variable *nest*.
+Notice that nest.entries could be reused with other data objects, so long as they have the property *dot*.
+
+Create a nest operator, register a key to nest data with, and return data in one chain:
+
+```javascript
+var entries = d3.nest()
+	.key(function(d) { return d.dot; })
+	nest.entries(colors);
+```
 
 
 ## nest.key(key)
@@ -150,3 +168,14 @@ Sort elements by the wave property in ascending order:
 nest.key(function(d) { return d.dot; })
 	.sortValues(function(a, b) { return d3.ascending(a.wave, b.wave); });
 ```
+
+
+## nest.rollup(function)
+
+**Parameters**
+
+*function*: a callback function that is applied on each array of leaf elements in a nested object.
+
+**Description**
+
+Specifies a rollup function to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in the either associative array returned by nest.map or nest.object; for nest.entries, it replaces the leaf entry.values with entry.value. If the leaves are sorted with nest.sortValues, the leaf elements are sorted prior to invoking the rollup function.
