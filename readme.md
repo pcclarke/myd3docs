@@ -180,3 +180,26 @@ nest.key(function(d) { return d.dot; })
 
 Specifies a rollup function to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in the either associative array returned by nest.map or nest.object; for nest.entries, it replaces the leaf entry.values with entry.value. If the leaves are sorted with nest.sortValues, the leaf elements are sorted prior to invoking the rollup function.
 
+**Example**
+
+Replace the leaf values with a count of its elements:
+
+```javascript
+var nest = d3.nest()
+	.key(function(d) { return d.dot; })
+	.rollup(function(d) { return d.length; });
+```
+
+Replace the leaf values with all the values of the wave property concatenated:
+
+```javascript
+var nest = d3.nest()
+	.key(function(d) { return d.dot; })
+	.rollup(function(d) { 
+		var waves = "wave-";
+		d.forEach(function(e) {
+			waves = waves + "" + e.wave;
+		});
+		return waves; 
+	});
+```
