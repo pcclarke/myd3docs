@@ -213,9 +213,13 @@ var nest = d3.nest()
 
 **Description**
 
-Applies the nest operator to the specified array, returning a nested D3 map.
+Applies the nest operator to an input array, returning a nested D3 map.
 
-The map is structured such that each map entry (key-value pair) in the returned map object corresponds to key functions in the nest operator. The entry value depends on the number of registered key functions: if there are multiple key functions, the value is another map up to the bottom leaves. If there is just one key function or at the bottom map, the value is the array of elements filtered from the input array that have the given key value. If no keys are defined, returns the input array.
+The map is structured such that each map entry (key-value pair) in the returned map object corresponds to the nest operator's key functions. How many levels of map entries there are depends on the number of key functions.
+
+Inside the map entry, the key value is determined by the value of the key at its level in the hierarchy of the nested object. The entry value is either the next nested map down, or an array of elements (leaves) filtered from the input array that match the key value of their map. 
+
+If no keys are defined, nest.map returns the input array.
 
 **Example**
 
