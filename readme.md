@@ -203,3 +203,26 @@ var nest = d3.nest()
 		return waves; 
 	});
 ```
+
+
+## nest.map(array)
+
+**Parameters**
+
+*array*: an array of objects to be nested by a nest operator.
+
+**Description**
+
+Applies the nest operator to the specified array, returning a nested D3 map.
+
+The map is structured such that each map entry (key-value pair) in the returned map object corresponds to key functions in the nest operator. The entry value depends on the number of registered key functions: if there are multiple key functions, the value is another map up to the bottom leaves. If there is just one key function or at the bottom map, the value is the array of elements filtered from the input array that have the given key value. If no keys are defined, returns the input array.
+
+**Example**
+
+Returning a nested object as a D3 map:
+
+```javascript
+var map = d3.nest()
+	.key(function(d) { return d.dot; })
+	.map(colors);
+```
