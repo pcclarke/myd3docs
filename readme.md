@@ -209,24 +209,67 @@ var nest = d3.nest()
 
 **Parameters**
 
-*array*: an array of objects to be nested by a nest operator.
+*array*: an array of objects to be nested by a nest operator. Each object should have a property matching the keys registered in the nest operator.
 
 **Description**
 
-Applies the nest operator to an input array, returning a nested D3 map.
+Applies the nest operator to an input array, returning a nested [D3 map](https://github.com/d3/d3-collection#maps).
 
-The map is structured such that each map entry (key-value pair) in the returned map object corresponds to the nest operator's key functions. How many levels of map entries there are depends on the number of key functions.
+The map is structured such that each map entry (key-value pair) in the returned map object corresponds to the nest operator's key functions. How many levels of map entries there are depends on how many .
 
 Inside the map entry, the key value is determined by the value of the key at its level in the hierarchy of the nested object. The entry value is either the next nested map down, or an array of elements (leaves) filtered from the input array that match the key value of their map. 
 
-If no keys are defined, nest.map returns the input array.
+If no keys are registered in the nest operator, nest.map returns the input array.
 
 **Example**
 
-Returning a nested object as a D3 map:
+Returning a nested array as a D3 map:
 
 ```javascript
 var map = d3.nest()
 	.key(function(d) { return d.dot; })
 	.map(colors);
+```
+
+
+## nest.object(array)
+
+**Parameters**
+
+*array*: an array of objects to be nested by a nest operator. Each object should have a property matching the keys registered in the nest operator.
+
+**Description**
+
+Applies the nest operator to an input array, returning a nested object where keys are property names and elements are assigned to values.
+
+The object is structured with levels of objects containing objects. How many levels of objects there are depends on the number of key functions.
+
+Inside an object, the property name is determined by the value of the key at its level in the hierarchy of the nested object. The object's value is either the next nested object down, or an array of elements (leaves) filtered from the input array that match the key value of their object. 
+
+> Note: Note: this method is unsafe if any of the keys conflict with built-in JavaScript properties, such as `__proto__`. If you cannot guarantee that the keys will be safe, you should use nest.map instead.
+
+**Example**
+
+Returning a nested array as an object:
+
+```javascript
+var nestObject = d3.nest()
+	.key(function(d) { return d.dot; })
+	.object(colors);
+```
+
+## nest.entries(array)
+
+**Parameters**
+
+*array*: an array of objects to be nested by a nest operator. Each object should have a property matching the keys registered in the nest operator.
+
+**Example**
+
+Returning a nested array as 
+
+```javascript
+var entries = d3.nest()
+	.key(function(d) { return d.dot; })
+	.entries(colors);
 ```
