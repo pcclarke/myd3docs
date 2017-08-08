@@ -101,7 +101,7 @@ var entries = d3.nest()
 
 Registers a new key function in the nest operator. When the nest operator is used to create nested data with the entries method, the key function is invoked for each element in the input array. The key function uses a string identifier to organize the elements into groups. Most often, the function is an object property accessor returned by the key callback function.
 
-It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of keys is in reverse of how they are registered; the last key registered is at the top of the hierarchy.
+It is possible to register multiple keys in a nest operator. Each time a key is registered, it is pushed onto the end of the internal array of keys. The order of the hierarchy in the nested object matches the order of keys; the first registered key is the top level of the hierarchy, the second registered key is the second level of the hierarchy, and so on.
 
 > Note: if the string identifier does not match any property in an element of the array, that object will be appended to an *undefined* key group.
 
@@ -257,6 +257,7 @@ var nestObject = d3.nest()
 	.key(function(d) { return d.dot; })
 	.object(colors);
 ```
+
 
 ## nest.entries(array)
 
