@@ -264,6 +264,12 @@ var nestObject = d3.nest()
 
 *array*: an array of objects to be nested by a nest operator. Each object should have a property matching the keys registered in the nest operator.
 
+Applies the nest operator to an input array, returning a nested object with two properties: key and values. Conceptually, this is similar to applying map.entries to the D3 map returned by [nest.map](https://pcclarke.github.io/myd3docs/#nestmaparray). But instead of being applied to just the first (outermost) level, it is applied to each level of the object's hierarchy.
+
+The object is structured with levels of objects containing objects. How many levels of objects there are depends on the number of key functions.
+
+Inside an object, the key property is determined by the value of the key at its level in the hierarchy of the nested object. The value property is either the next nested object down, or an array of elements (leaves) filtered from the input array that match the key value of their object.
+
 **Example**
 
 Returning a nested array as 
