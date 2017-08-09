@@ -1,10 +1,10 @@
 # Nests
 
-Nesting in D3 refers to creating hierarchical objects from arrays containing objects with matching property names. The nest method creates key-value pairs by grouping elements in an array by a given property, returning an array of hierarchical objects. By supplying multiple properties, it is possible to create tree structures with many levels of keys.
+Nesting in D3 refers to creating hierarchical objects from arrays containing objects with matching property names. The nest method creates key-value pairs with elements grouped into value arrays by their keys. It is possible to create tree structures with many levels by registering multiple keys to the nest method.
 
-An initialized nest method is called a *nest operator* because it performs operations on data, similar to arithmetic operators. A nest operator does not retain any reference to data it has nested and it can be reused with different data inputs. The only information stored in the nest operator are the keys and other methods used to define how objects should be nested.
+An initialized nest method is called a *nest operator* because it performs operations on data, in a similar sense to arithmetic operators. A nest operator does not retain any reference to data it has nested, so it can be reused with different data inputs and outputs. The only information stored in the nest operator are the keys and other methods used to define how objects should be nested.
 
-Nests are an extremely useful feature in D3 for analyzing and manipulating data. Objects are commonly nested so that the new hierarchy can be iterated through, such as in drawing methods. You can also create nest operators to sort the data by keys or leaves, and to calculate summary data using the rollup method.
+Nests are an extremely useful feature in D3 for analyzing and manipulating data. Objects are commonly nested so that the new hierarchy can be iterated through. For example, iterating through a nested object in a drawing method makes it simple to only draw a subset of data that has the same property. You can also create nest operators to sort the data by keys or leaves, and to calculate summary data for a group using the rollup method.
 
 **Example**
 
@@ -12,11 +12,11 @@ Consider an array with ten elements, each containing an object that has four pro
 
 ![array with ten elements](nesting_color_array.jpg)
 
-Here the properties are shown by different border styles, and their contents as colors. If we were to nest this array by registering the small dotted border as a key, the resulting nested object would look like the following:
+Here the properties are shown by different border styles, and their contents as colors. If we were to nest this array by registering the small dotted border as a key, the returned nested object from [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray) would look like the following:
 
 ![nested object](nesting_color_entries.jpg)
 
-Now the elements are nested by the value of the small dot key. There are three keys, from the three unique values of the dot property. Each key has an array of elements that contain a dot property with a value mactching the key. Notice that the ten elements from the original array have not changed, only they been reorganized into the new key-value hierarchy.
+Now the elements are nested by the value of the small dot key. There are three keys, from the three unique values of the dot property. Each key has an array of elements that contain a dot property with a value matching the key. Notice that the ten elements from the original array have not changed, only they been reorganized into the new key-value hierarchy.
 
 Here's the same process again, but with Javascript. Start with an array containing ten elements, each containing an object that has four properties:
 
@@ -35,7 +35,7 @@ var colors = [
 ];
 ```
 
-Then, in nested form using the dot property as a key:
+Then register dot property as a key and get the return value from [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray):
 
 ```javascript
 [
@@ -45,14 +45,14 @@ Then, in nested form using the dot property as a key:
 ]
 ```
 
-The following sections describe how to use d3.nest() to set up and transform arrays into nested objects.
+The following sections describe how to use d3.nest() to set up and transform arrays into nested objects, along with their return methods.
 
 
 ## d3.nest()
 
 **Description**
 
-Creates a new nest operator. Nest operators must first be set up with builder methods that describe how and what data should be nested. Then they can be used with invoking methods that take an array and return data. For example, to return a nested object with the *entries* method, you must first register at least one key with the *key* method.
+Creates a new nest operator. Nest operators must first be set up with builder methods that describe how and what data should be nested. Then they can be used with invoking methods that take an array and return data. For example, to return a nested object with [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray), you must first register at least one key with [nest.key](https://pcclarke.github.io/myd3docs/#nestkeykey).
 
 Builder methods:
 
@@ -67,11 +67,11 @@ Invoking methods:
 - map
 - object
 
-There are two patterns for using nest operators. First is set up d3.nest with a chain of constructor methods to create a reusable nest operator. The second is to chain both the constructor and invoking methods together to get an immediate result.
+There are two patterns for using nest operators. First is to set up d3.nest with a chain of constructor methods to create a reusable nest operator. The second is to chain both the constructor and invoking methods together to get an immediate result.
 
 **Example**
 
-Create a nest operator and register a key to nest data with, then return the data with entries:
+Create a nest operator and register a key to nest data with, then return the data with [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray):
 
 ```javascript
 var nest = d3.nest()
@@ -80,7 +80,7 @@ var nest = d3.nest()
 var entries = nest.entries(colors);
 ```
 
-Notice that nest.entries could be reused with other data objects, so long as they have the property *dot*.
+Notice that *nest* could be reused with other data objects, so long as they have the property *dot*.
 
 Create a nest operator, register a key to nest data with, and return data in one chain:
 
@@ -122,7 +122,7 @@ nest.key(function(d) { return d.dot; })
 	.key(function(d) { return d.block; });
 ```
 
-Here two key methods are chained together to register the *dot* and *block* property accessors as keys. The *block* key will be first in the hierarchy, then *dot*.
+Here two key methods are chained together to register the *dot* and *block* property accessors as keys. The *dot* key will be first in the hierarchy, then *block*.
 
 
 ## nest.sortKeys(comparator)
@@ -133,11 +133,11 @@ Here two key methods are chained together to register the *dot* and *block* prop
 
 **Description**
 
-Sorts key values of the last registered key using a given comparator function when they are returned from the *entries* nest method.
+Sorts key values of the last registered key using a given comparator function when they are returned from [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray).
 
-> Note: nest.sortKeys only affects the result of nest.entries; the order of keys returned by nest.map and nest.object is always arbitrary, regardless of comparator.
+> Note: nest.sortKeys only affects the result of [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray); the order of keys returned by [nest.map](https://pcclarke.github.io/myd3docs/#nestmaparray) and [nest.object](https://pcclarke.github.io/myd3docs/#nestobjectarray) is always arbitrary, regardless of comparator.
 
-D3 provides two sort order functions that can be supplied to nest.sortKeys, *d3.ascending* and *d3.descending*. If no comparator function is supplied, the keys will be arbitrarily sorted.
+D3 provides two sort order functions that can be supplied to nest.sortKeys, [d3.ascending](https://github.com/d3/d3-array#ascending) and [d3.descending](https://github.com/d3/d3-array#descending). If no comparator function is supplied, the keys will be arbitrarily sorted.
 
 **Example**
 
@@ -158,7 +158,7 @@ nest.key(function(d) { return d.dot; }).sortKeys(d3.ascending)
 
 Sorts leaf elements using a given comparator function. Applies to nest.entries, nest.map, and nest.object.
 
-A comparator function must be supplied to specify which element properties to sort by, even when using the included *d3.ascending* and *d3.descending* sort order functions. If no comparator function is supplied, the keys will be arbitrarily sorted.
+A comparator function must be supplied to specify which element properties to sort by, even when using the included [d3.ascending](https://github.com/d3/d3-array#ascending) and [d3.descending](https://github.com/d3/d3-array#descending) sort order functions. If no comparator function is supplied, the keys will be arbitrarily sorted.
 
 **Example**
 
@@ -178,7 +178,9 @@ nest.key(function(d) { return d.dot; })
 
 **Description**
 
-Specifies a rollup function to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in the either associative array returned by nest.map or nest.object; for nest.entries, it replaces the leaf entry.values with entry.value. If the leaves are sorted with nest.sortValues, the leaf elements are sorted prior to invoking the rollup function.
+Specifies a rollup function to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in the either associative array returned by [nest.map](https://pcclarke.github.io/myd3docs/#nestmaparray) or [nest.object](https://pcclarke.github.io/myd3docs/#nestobjectarray); for [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray), it replaces the leaf entry.values with entry.value. 
+
+> Note: if the leaves are sorted with nest.sortValues, the leaf elements are sorted prior to invoking the rollup function.
 
 **Example**
 
@@ -246,7 +248,7 @@ The object is structured with levels of objects containing objects. How many lev
 
 Inside an object, the property name is determined by the value of the key at its level in the hierarchy of the nested object. The object's value is either the next nested object down, or an array of elements (leaves) filtered from the input array that match the key value of their object. 
 
-> Note: Note: this method is unsafe if any of the keys conflict with built-in JavaScript properties, such as `__proto__`. If you cannot guarantee that the keys will be safe, you should use nest.map instead.
+> Note: this method is unsafe if any of the keys conflict with built-in JavaScript properties, such as `__proto__`. If you cannot guarantee that the keys will be safe, you should use [nest.map](https://pcclarke.github.io/myd3docs/#nestmaparray) or [nest.entries](https://pcclarke.github.io/myd3docs/#nestentriesarray) instead.
 
 **Example**
 
